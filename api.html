@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API practice</title>
+</head>
+
+<body>
+    <!-- Create a html page with a table of 100 post with two column named "Post title" and "Description" fetching data from this route https://jsonplaceholder.typicode.com/posts.
+ -->
+
+    <h1>API Data</h1>
+    <table id="table" style="border: 1px solid;">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+    </table>
+    
+
+    <script>
+        let table = document.getElementById("table")
+        let nameTR = document.getElementById("nameTR")
+
+
+
+        // api placeholder
+        document.write("Fetching data, Please Wait")
+        setTimeout(() => {
+            fetch('https://jsonplaceholder.typicode.com/posts')
+                .catch((error) => {
+                    return('Cant fetch data')
+                })
+                .then(response => response.json()) //to fetch json from server
+                .then(fetchedData => {
+                    console.log(
+                        fetchedData
+                        ); //the whole json is saved and can be accessed in the file "fetchedData"
+
+                    for (let x in fetchedData) {
+
+                        let title = (`${fetchedData[x].title} <br>`);
+                        let desc = (`${fetchedData[x].body} <br>`);
+
+                        let tr = document.createElement("tr")
+                        let tdTitle = document.createElement("td")
+                        let tdBody = document.createElement("td")
+
+                        tdTitle.innerHTML = title;
+                        tdBody.innerHTML = desc;
+                        tr.appendChild(tdTitle)
+                        tr.appendChild(tdBody)
+                        table.appendChild(tr)
+
+
+                    
+                    }
+
+                })
+
+
+        }, 2000);
+
+        // creating list
+    </script>
+</body>
+
+</html>
